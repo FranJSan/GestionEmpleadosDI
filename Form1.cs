@@ -110,23 +110,12 @@ namespace GestionEmpleados
             // Establezco el nuevo índice para los items
             int newIndex = 0;
             if ((Button)sender == BtnFlechaArriba)
-            {               
-                if (LBApellidos.SelectedIndex >= 1)
-                {
-                    newIndex = LBIDEmple.SelectedIndex - 1;
-                } else
-                {
-                    newIndex = LBIDEmple.Items.Count - 1;
-                }
+            {
+                newIndex = LBApellidos.SelectedIndex >= 1 ? LBIDEmple.SelectedIndex - 1 : LBIDEmple.Items.Count - 1;
+                
             } else
             {
-                if (LBApellidos.SelectedIndex < LBApellidos.Items.Count - 1)
-                {
-                    newIndex = LBIDEmple.SelectedIndex + 1;
-                } else
-                {
-                    newIndex = 0;
-                }
+                newIndex = LBApellidos.SelectedIndex < LBApellidos.Items.Count - 1 ? LBIDEmple.SelectedIndex + 1 : 0;                
             }
 
             // Setteo el nuevo indice a todas las LB

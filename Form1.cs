@@ -549,6 +549,7 @@ namespace GestionEmpleados
                     MessageBox.Show("Tiene que seleccionar al empleado que quiere " + actionButton.Tag + ".");
                     return false;
                 }
+                else if (actionButton == BtnBorrar) return true;
             }
             else
             {

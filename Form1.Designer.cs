@@ -280,6 +280,7 @@ namespace GestionEmpleados
             this.BtnFlechaArriba.Size = new System.Drawing.Size(64, 55);
             this.BtnFlechaArriba.TabIndex = 21;
             this.BtnFlechaArriba.UseVisualStyleBackColor = false;
+            this.BtnFlechaArriba.Click += new System.EventHandler(this.BtnFlechasClick);
             // 
             // BtnFlechaAbajo
             // 
@@ -291,6 +292,7 @@ namespace GestionEmpleados
             this.BtnFlechaAbajo.Size = new System.Drawing.Size(64, 55);
             this.BtnFlechaAbajo.TabIndex = 22;
             this.BtnFlechaAbajo.UseVisualStyleBackColor = false;
+            this.BtnFlechaAbajo.Click += new System.EventHandler(this.BtnFlechasClick);
             // 
             // panel1
             // 

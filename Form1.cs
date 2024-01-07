@@ -39,9 +39,7 @@ namespace GestionEmpleados
         {
             EstablecerConexion();
             CargarDepartyLoc();
-            BuscarYMostrarNombresColumnas();
-            BtnFlechaArriba.Click += new EventHandler(BtnFlechasClick);
-            BtnFlechaAbajo.Click += new EventHandler(BtnFlechasClick);
+            BuscarYMostrarNombresColumnas();            
             ConfigTT();
         }
 
@@ -82,98 +80,6 @@ namespace GestionEmpleados
         }
 
         /// <summary>
-        /// Controlador del evento click sobre los items de las LBDepart y LBLocalizacion..
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LBItemClickDepart(object sender, EventArgs e)
-        {
-            ListBox lb = (ListBox)sender;
-            if (lb.SelectedItem == null) return;
-
-            LBDepart.SelectedIndex = lb.SelectedIndex;
-            LBLocalizacion.SelectedIndex = lb.SelectedIndex;
-            LBIDDepart.SelectedIndex = lb.SelectedIndex;
-            
-            BuscarYMostrarEmpleadosPorDepart();     
-        }
-              
-        /// <summary>
-        /// Controlador del evento click sobre las flechas. Según el botón fuente, sube o baja la selección sobre las ListBox
-        /// con los datos de los empleados.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <remarks> Es cíclico, desde el último item si seguimos "bajando" pasamos al primero y viceversa </remarks>
-        private void BtnFlechasClick(object sender, EventArgs e)
-        {
-            // Establezco el nuevo índice para los items
-            int newIndex = 0;
-            if ((Button)sender == BtnFlechaArriba)
-            {
-                newIndex = LBApellidos.SelectedIndex >= 1 ? LBIDEmple.SelectedIndex - 1 : LBIDEmple.Items.Count - 1;
-                
-            } else
-            {
-                newIndex = LBApellidos.SelectedIndex < LBApellidos.Items.Count - 1 ? LBIDEmple.SelectedIndex + 1 : 0;                
-            }
-
-            // Setteo el nuevo indice a todas las LB
-            LBDeptNoEmple.SelectedIndex = newIndex;
-            LBIDEmple.SelectedIndex = newIndex;
-            LBApellidos.SelectedIndex = newIndex;
-            LBOficio.SelectedIndex = newIndex;
-            LBSalario.SelectedIndex = newIndex;
-            LBFechaAlta.SelectedIndex = newIndex;
-            LBComision.SelectedIndex = newIndex;
-
-            LBIDDepart.SelectedItem = LBDeptNoEmple.SelectedItem;
-            LBDepart.SelectedIndex = LBIDDepart.SelectedIndex;
-            LBLocalizacion.SelectedIndex = LBIDDepart.SelectedIndex;
-
-            // El item seleccionado vuelca los datos en los TB para la actualización / creación de un registro.
-            InsertarDatosEmpleado();
-        }
-
-        /// <summary>
-        /// Controlador del eventos click sobre los item de las LB de los datos del registro. Al seleccionar un item,
-        /// cambia automaticamente la selección del resto de LB y se vuelcan los datos a los TextBox para la actualización /
-        /// creación de un registro.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LBItemClickEmple(object sender, EventArgs e)
-        {
-            ListBox lb = (ListBox)sender;
-            LBDeptNoEmple.SelectedIndex = lb.SelectedIndex;
-            LBIDEmple.SelectedIndex = lb.SelectedIndex;
-            LBApellidos.SelectedIndex = lb.SelectedIndex;
-            LBOficio.SelectedIndex = lb.SelectedIndex;
-            LBSalario.SelectedIndex = lb.SelectedIndex;
-            LBFechaAlta.SelectedIndex = lb.SelectedIndex;
-            LBComision.SelectedIndex = lb.SelectedIndex;
-
-            LBIDDepart.SelectedItem = LBDeptNoEmple.SelectedItem;
-            LBDepart.SelectedIndex = LBIDDepart.SelectedIndex;
-            LBLocalizacion.SelectedIndex = LBIDDepart.SelectedIndex;
-
-            InsertarDatosEmpleado();       
-        }
-
-        /// <summary>
-        /// Este método inserta los datos de las ListBox en los TextBox correspondiente.
-        /// </summary>
-        private void InsertarDatosEmpleado()
-        {
-            TBApellidos.Text = LBApellidos.SelectedItem.ToString();
-            TBOficio.Text = LBOficio.SelectedItem.ToString();
-            TBSalario.Text = LBSalario.SelectedItem.ToString();
-            TBFechaAlta.Text = LBFechaAlta.SelectedItem.ToString();
-            TBComision.Text = LBComision.SelectedItem.ToString();
-
-        }
-
-        /// <summary>
         /// Este método busca los empleados de el departamento seleccionado y los muestra en la ListBox correspondiente.
         /// </summary>
         private void BuscarYMostrarEmpleadosPorDepart()
@@ -182,7 +88,7 @@ namespace GestionEmpleados
 
             LimpiarDatosLB();
             // Consulta
-           
+
             command = conexion.CreateCommand();
             command.CommandText = "select * from emple where dept_no = " + LBIDDepart.SelectedItem.ToString();
 
@@ -216,7 +122,101 @@ namespace GestionEmpleados
                 CbBuscar.Items.Add(columnName);
             }
 
-            CbBuscar.SelectedIndex = 0; 
+            CbBuscar.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// Controlador del evento click sobre los items de las LBDepart y LBLocalizacion..
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <see cref="BuscarYMostrarEmpleadosPorDepart()"/>
+        private void LBItemClickDepart(object sender, EventArgs e)
+        {
+            ListBox lb = (ListBox)sender;
+            if (lb.SelectedItem == null) return;
+
+            LBDepart.SelectedIndex = lb.SelectedIndex;
+            LBLocalizacion.SelectedIndex = lb.SelectedIndex;
+            LBIDDepart.SelectedIndex = lb.SelectedIndex;
+            
+            BuscarYMostrarEmpleadosPorDepart();     
+        }
+
+        /// <summary>
+        /// Controlador del eventos click sobre los item de las LB de los datos del registro. Al seleccionar un item,
+        /// cambia automaticamente la selección del resto de LB y se vuelcan los datos a los TextBox para la actualización /
+        /// creación de un registro.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LBItemClickEmple(object sender, EventArgs e)
+        {
+            ListBox lb = (ListBox)sender;
+            LBDeptNoEmple.SelectedIndex = lb.SelectedIndex;
+            LBIDEmple.SelectedIndex = lb.SelectedIndex;
+            LBApellidos.SelectedIndex = lb.SelectedIndex;
+            LBOficio.SelectedIndex = lb.SelectedIndex;
+            LBSalario.SelectedIndex = lb.SelectedIndex;
+            LBFechaAlta.SelectedIndex = lb.SelectedIndex;
+            LBComision.SelectedIndex = lb.SelectedIndex;
+
+            LBIDDepart.SelectedItem = LBDeptNoEmple.SelectedItem;
+            LBDepart.SelectedIndex = LBIDDepart.SelectedIndex;
+            LBLocalizacion.SelectedIndex = LBIDDepart.SelectedIndex;
+
+            if (LBIDEmple.SelectedItem == null) return;
+            InsertarDatosEmpleado();       
+        }
+
+        /// <summary>
+        /// Este método inserta los datos de las ListBox en los TextBox correspondiente.
+        /// </summary>
+        private void InsertarDatosEmpleado()
+        {
+            TBApellidos.Text = LBApellidos.SelectedItem.ToString();
+            TBOficio.Text = LBOficio.SelectedItem.ToString();
+            TBSalario.Text = LBSalario.SelectedItem.ToString();
+            TBFechaAlta.Text = LBFechaAlta.SelectedItem.ToString();
+            TBComision.Text = LBComision.SelectedItem.ToString();
+
+        }
+
+        /// <summary>
+        /// Controlador del evento click sobre las flechas. Según el botón fuente, sube o baja la selección sobre las ListBox
+        /// con los datos de los empleados.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <remarks> Es cíclico, desde el último item si seguimos "bajando" pasamos al primero y viceversa </remarks>
+        private void BtnFlechasClick(object sender, EventArgs e)
+        {
+            // Establezco el nuevo índice para los items
+            int newIndex = 0;
+            if ((Button)sender == BtnFlechaArriba)
+            {
+                newIndex = LBApellidos.SelectedIndex >= 1 ? LBIDEmple.SelectedIndex - 1 : LBIDEmple.Items.Count - 1;
+            }
+            else
+            {
+                newIndex = LBApellidos.SelectedIndex < LBApellidos.Items.Count - 1 ? LBIDEmple.SelectedIndex + 1 : 0;
+            }
+
+            // Setteo el nuevo indice a todas las LB
+            LBDeptNoEmple.SelectedIndex = newIndex;
+            LBIDEmple.SelectedIndex = newIndex;
+            LBApellidos.SelectedIndex = newIndex;
+            LBOficio.SelectedIndex = newIndex;
+            LBSalario.SelectedIndex = newIndex;
+            LBFechaAlta.SelectedIndex = newIndex;
+            LBComision.SelectedIndex = newIndex;
+
+            LBIDDepart.SelectedItem = LBDeptNoEmple.SelectedItem;
+            LBDepart.SelectedIndex = LBIDDepart.SelectedIndex;
+            LBLocalizacion.SelectedIndex = LBIDDepart.SelectedIndex;
+
+            // El item seleccionado vuelca los datos en los TB para la actualización / creación de un registro.
+            InsertarDatosEmpleado();
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace GestionEmpleados
             }         
 
             return true;
-        }
+        }        
 
         /// <summary>
         /// Método para establecer la configuración del ToolTip
@@ -338,126 +338,6 @@ namespace GestionEmpleados
         {
             string info = "Al crear un nuevo registro, se añadirá al departamento que esté seleccionado";
             TTInfo.SetToolTip(LblInfo, info);
-        }
-
-        /// <summary>
-        /// Método que comprueba la validez de los datos de un empleado para guardarlo, actualizarlo o borrarlo
-        /// de la base de datos. Hace uso de patrone regex en algunos casos
-        /// </summary>
-        /// <param name="actionButton">Botoón fuente del evento. Según la acción se comprobarán los inputs.</param>
-        /// <returns>true si los inputs son correctos, false si no lo son</returns>
-        /// <remarks>El método lanza un mensanje al usuario indicandole la causa del error si lo hubiera</remarks>
-        /// <see cref="Regex.IsMatch(string, string)"/>
-        /// <see cref="LanzarError(string, string)"/>       
-        private bool VerificarInputEmpleado(Button actionButton)
-        {
-            if (actionButton == BtnActualizar || actionButton == BtnBorrar)
-            {
-                if (LBIDEmple.SelectedItem == null)
-                {
-                    MessageBox.Show("Tiene que seleccionar al empleado que quiere " + actionButton.Tag + ".");
-                    return false;
-                }
-            } else
-            {
-                if (LBIDDepart.SelectedItem == null)
-                {
-                    MessageBox.Show("Tiene que seleccionar el departamento para " + actionButton.Tag + " al empleado.");
-                    return false;
-                }
-            }
-
-            if (TBApellidos.Text.Length == 0)
-            {
-                LanzarError(LblApellidos.Text, (string)actionButton.Tag);
-                return false;                
-            }
-            
-            if (TBOficio.Text.Length == 0)
-            {
-                LanzarError(LblOficio.Text, (string)actionButton.Tag);
-                return false;
-            }
-
-            if (TBSalario.Text.Length == 0 || !Regex.IsMatch(TBSalario.Text, @"^\d+$"))
-            {
-                LanzarError(LblSalario.Text, (string)actionButton.Tag);
-                return false;                
-            }            
-
-            if (TBFechaAlta.Text.Length == 0 || !Regex.IsMatch(TBFechaAlta.Text, @"^\d{2}/\d{2}/\d{4}$"))
-            {
-                LanzarError(LblFechaAlta.Text, (string)actionButton.Tag);
-                return false;                
-            }            
-
-            if (TBComision.Text.Length == 0 || !Regex.IsMatch(TBComision.Text, @"^\d+$"))
-            {
-                LanzarError(LblComision.Text, (string)actionButton.Tag);
-                return false; 
-            }           
-
-            return true;
-        }
-
-        /// <summary>
-        /// Métodoo para guardar un nuevo registro en la base de datos. No he podido usar el método anterior para 
-        /// comprobar la valided de los inputs, ya que necesitaba comprobar requisitos diferentes.
-        /// </summary>
-        private void GuardarEmpleNuevo()
-        {   
-            if (!VerificarInputEmpleado(BtnNuevo)) return;
-            OleDbParameter[] parametros = GetParametersEmple(BtnNuevo);
-
-            command = conexion.CreateCommand();
-            command.CommandText = "INSERT INTO emple(" +
-                                        "emp_no," +
-                                        " apellido," +
-                                        " oficio," +
-                                        " salario," +
-                                        " fecha_alt," +                                        
-                                        " comision," +
-                                        " dept_no) " +
-                                  "VALUES(@empNo, @apellido, @oficio, @salario, @fechaAlta, @comision, @deptNo)";
-
-
-            foreach (OleDbParameter param in parametros)
-            {
-                command.Parameters.Add(param);
-            }
-
-            command.ExecuteNonQuery();
-            MessageBox.Show("Se ha insertado correctamente el registro.");
-
-            // Según estemos o no en una búsqueda, tras crear el registro se mostrarán los datos de la búsqueda o del 
-            // departamento seleccionado.
-            if (!isSearch)
-            {
-                BuscarYMostrarEmpleadosPorDepart();
-            } 
-            else
-            {
-                BtnBuscar_Click(BtnBuscar, null);
-            }
-        }
-
-        /// <summary>
-        /// Método para generar un nuevo ID para un empleado nuevo.
-        /// </summary>
-        /// <returns>
-        /// Número ID nuevo generado si todo el proceso a sido correcto o 0 si hay algún error.
-        /// </returns>
-        /// <remarks> Consulta sobre la base de datos el ID más alto, le suma uno y lo devuleve</remarks>
-        private int GenerarNumEmple()
-        {
-            command.CommandText = "SELECT MAX(emp_no) AS idMax FROM emple";
-            IDataReader dataReader = command.ExecuteReader();
-            int idMax = 0;
-            while (dataReader.Read()) {
-                idMax = Convert.ToInt32(dataReader["idMax"]);                
-            }
-            dataReader.Close();
-            return idMax + 1;
         }
 
         /// <summary>
@@ -495,42 +375,43 @@ namespace GestionEmpleados
         }
 
         /// <summary>
-        /// Método que devuelve un array de los parámetros necesarios para crear o actualizar un registro.
+        /// Métodoo para guardar un nuevo registro en la base de datos. No he podido usar el método anterior para 
+        /// comprobar la valided de los inputs, ya que necesitaba comprobar requisitos diferentes.
         /// </summary>
-        /// <param name="btn"></param>
-        /// <returns>array de OleDBParameter con los parametros requeridos</returns>
-        /// <remarks>Según el botón se devulve el array en un orden u otro</remarks>
-        private OleDbParameter[] GetParametersEmple(Button btn)
+        private void GuardarEmpleNuevo()
         {
-            string apellidos = TBApellidos.Text;
-            string oficio = TBOficio.Text;
-            int salario = Convert.ToInt32(TBSalario.Text);
-            string fechaAlta = TBFechaAlta.Text;
-            int comision = Convert.ToInt32(TBComision.Text);
-            int numberEmple = btn == BtnActualizar ? Convert.ToInt32(LBIDEmple.SelectedItem.ToString()) : GenerarNumEmple();
+            if (!VerificarInputEmpleado(BtnNuevo)) return;
+            OleDbParameter[] parametros = GetParametersEmple(BtnNuevo);
 
-            OleDbParameter paramApellido = new OleDbParameter("@apellido", apellidos);
-            paramApellido.Direction = ParameterDirection.Input;
-            OleDbParameter paramOficio = new OleDbParameter("@oficio", oficio);
-            paramOficio.Direction = ParameterDirection.Input;
-            OleDbParameter paramSalario = new OleDbParameter("@salario", salario);
-            paramSalario.Direction = ParameterDirection.Input;
-            OleDbParameter paramFechaAlta = new OleDbParameter("@fechaAlta", Convert.ToDateTime(fechaAlta));
-            paramFechaAlta.Direction = ParameterDirection.Input;
-            OleDbParameter paramComision = new OleDbParameter("@comision", comision);
-            paramComision.Direction = ParameterDirection.Input;
-            OleDbParameter paramDeptNo = new OleDbParameter("@deptNo", LBIDDepart.SelectedItem.ToString());
-            paramDeptNo.Direction = ParameterDirection.Input;
-            OleDbParameter paramEmpNo = new OleDbParameter("@empNo", numberEmple);
-            paramEmpNo.Direction = ParameterDirection.Input;
+            command = conexion.CreateCommand();
+            command.CommandText = "INSERT INTO emple(" +
+                                        "emp_no," +
+                                        " apellido," +
+                                        " oficio," +
+                                        " salario," +
+                                        " fecha_alt," +
+                                        " comision," +
+                                        " dept_no) " +
+                                  "VALUES(@empNo, @apellido, @oficio, @salario, @fechaAlta, @comision, @deptNo)";
 
-            if (btn == BtnActualizar)
+
+            foreach (OleDbParameter param in parametros)
             {
-                return new OleDbParameter[] { paramApellido, paramOficio, paramSalario, paramFechaAlta, paramComision, paramDeptNo, paramEmpNo };
-            } 
+                command.Parameters.Add(param);
+            }
+
+            command.ExecuteNonQuery();
+            MessageBox.Show("Se ha insertado correctamente el registro.");
+
+            // Según estemos o no en una búsqueda, tras crear el registro se mostrarán los datos de la búsqueda o del 
+            // departamento seleccionado.
+            if (!isSearch)
+            {
+                BuscarYMostrarEmpleadosPorDepart();
+            }
             else
-            {                     
-                return new OleDbParameter[] { paramEmpNo, paramApellido, paramOficio, paramSalario, paramFechaAlta, paramComision, paramDeptNo };
+            {
+                BtnBuscar_Click(BtnBuscar, null);
             }
         }
 
@@ -568,17 +449,6 @@ namespace GestionEmpleados
                 BtnBuscar_Click(BtnBuscar, null);
             }
         }
-
-        /// <summary>
-        /// Controlador del evento click del Label que hay sobre el TextBox de área de búsqueda.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LblBorrarInput_Click(object sender, EventArgs e)
-        {
-            TbBuscarEmple.Text = "";
-        }
-
         
         /// <summary>
         /// Método para borrar el empleado seleccionado de la base de datos
@@ -602,6 +472,127 @@ namespace GestionEmpleados
         }
 
         /// <summary>
+        /// Método para generar un nuevo ID para un empleado nuevo.
+        /// </summary>
+        /// <returns>
+        /// Número ID nuevo generado si todo el proceso a sido correcto o 0 si hay algún error.
+        /// </returns>
+        /// <remarks> Consulta sobre la base de datos el ID más alto, le suma uno y lo devuleve</remarks>
+        private int GenerarNumEmple()
+        {
+            command.CommandText = "SELECT MAX(emp_no) AS idMax FROM emple";
+            IDataReader dataReader = command.ExecuteReader();
+            int idMax = 0;
+            while (dataReader.Read())
+            {
+                idMax = Convert.ToInt32(dataReader["idMax"]);
+            }
+            dataReader.Close();
+            return idMax + 1;
+        }
+
+        /// <summary>
+        /// Método que devuelve un array de los parámetros necesarios para crear o actualizar un registro.
+        /// </summary>
+        /// <param name="btn"></param>
+        /// <returns>array de OleDBParameter con los parametros requeridos</returns>
+        /// <remarks>Según el botón se devulve el array en un orden u otro</remarks>
+        private OleDbParameter[] GetParametersEmple(Button btn)
+        {
+            string apellidos = TBApellidos.Text;
+            string oficio = TBOficio.Text;
+            int salario = Convert.ToInt32(TBSalario.Text);
+            string fechaAlta = TBFechaAlta.Text;
+            int comision = Convert.ToInt32(TBComision.Text);
+            int numberEmple = btn == BtnActualizar ? Convert.ToInt32(LBIDEmple.SelectedItem.ToString()) : GenerarNumEmple();
+
+            OleDbParameter paramApellido = new OleDbParameter("@apellido", apellidos);
+            paramApellido.Direction = ParameterDirection.Input;
+            OleDbParameter paramOficio = new OleDbParameter("@oficio", oficio);
+            paramOficio.Direction = ParameterDirection.Input;
+            OleDbParameter paramSalario = new OleDbParameter("@salario", salario);
+            paramSalario.Direction = ParameterDirection.Input;
+            OleDbParameter paramFechaAlta = new OleDbParameter("@fechaAlta", Convert.ToDateTime(fechaAlta));
+            paramFechaAlta.Direction = ParameterDirection.Input;
+            OleDbParameter paramComision = new OleDbParameter("@comision", comision);
+            paramComision.Direction = ParameterDirection.Input;
+            OleDbParameter paramDeptNo = new OleDbParameter("@deptNo", LBIDDepart.SelectedItem.ToString());
+            paramDeptNo.Direction = ParameterDirection.Input;
+            OleDbParameter paramEmpNo = new OleDbParameter("@empNo", numberEmple);
+            paramEmpNo.Direction = ParameterDirection.Input;
+
+            if (btn == BtnActualizar)
+            {
+                return new OleDbParameter[] { paramApellido, paramOficio, paramSalario, paramFechaAlta, paramComision, paramDeptNo, paramEmpNo };
+            }
+            else
+            {
+                return new OleDbParameter[] { paramEmpNo, paramApellido, paramOficio, paramSalario, paramFechaAlta, paramComision, paramDeptNo };
+            }
+        }
+
+        /// <summary>
+        /// Método que comprueba la validez de los datos de un empleado para guardarlo, actualizarlo o borrarlo
+        /// de la base de datos. Hace uso de patrone regex en algunos casos
+        /// </summary>
+        /// <param name="actionButton">Botoón fuente del evento. Según la acción se comprobarán los inputs.</param>
+        /// <returns>true si los inputs son correctos, false si no lo son</returns>
+        /// <remarks>El método lanza un mensanje al usuario indicandole la causa del error si lo hubiera</remarks>
+        /// <see cref="Regex.IsMatch(string, string)"/>
+        /// <see cref="LanzarError(string, string)"/>       
+        private bool VerificarInputEmpleado(Button actionButton)
+        {
+            if (actionButton == BtnActualizar || actionButton == BtnBorrar)
+            {
+                if (LBIDEmple.SelectedItem == null)
+                {
+                    MessageBox.Show("Tiene que seleccionar al empleado que quiere " + actionButton.Tag + ".");
+                    return false;
+                }
+            }
+            else
+            {
+                if (LBIDDepart.SelectedItem == null)
+                {
+                    MessageBox.Show("Tiene que seleccionar el departamento para " + actionButton.Tag + " al empleado.");
+                    return false;
+                }
+            }
+
+            if (TBApellidos.Text.Length == 0)
+            {
+                LanzarError(LblApellidos.Text, (string)actionButton.Tag);
+                return false;
+            }
+
+            if (TBOficio.Text.Length == 0)
+            {
+                LanzarError(LblOficio.Text, (string)actionButton.Tag);
+                return false;
+            }
+
+            if (TBSalario.Text.Length == 0 || !Regex.IsMatch(TBSalario.Text, @"^\d+$"))
+            {
+                LanzarError(LblSalario.Text, (string)actionButton.Tag);
+                return false;
+            }
+
+            if (TBFechaAlta.Text.Length == 0 || !Regex.IsMatch(TBFechaAlta.Text, @"^\d{2}/\d{2}/\d{4}$"))
+            {
+                LanzarError(LblFechaAlta.Text, (string)actionButton.Tag);
+                return false;
+            }
+
+            if (TBComision.Text.Length == 0 || !Regex.IsMatch(TBComision.Text, @"^\d+$"))
+            {
+                LanzarError(LblComision.Text, (string)actionButton.Tag);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Controlador del eventro Press del TextBox del área de búsqueda. 
         /// </summary>
         /// <param name="sender"></param>
@@ -618,6 +609,16 @@ namespace GestionEmpleados
                                   // y deja de emitir el sonido.  
                 BtnBuscar_Click(sender, null);
             } 
-        }       
+        }
+
+        /// <summary>
+        /// Controlador del evento click del Label que hay sobre el TextBox de área de búsqueda.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LblBorrarInput_Click(object sender, EventArgs e)
+        {
+            TbBuscarEmple.Text = "";
+        }
     }
 }

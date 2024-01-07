@@ -63,17 +63,17 @@ namespace GestionEmpleados
             this.CbBuscar = new System.Windows.Forms.ComboBox();
             this.BtnActualizar = new System.Windows.Forms.Button();
             this.BtnBorrar = new System.Windows.Forms.Button();
-            this.btnNuevo = new System.Windows.Forms.Button();
+            this.BtnNuevo = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.LblInfo = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.LBDeptNoEmple = new System.Windows.Forms.ListBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.LblApellidos = new System.Windows.Forms.Label();
+            this.LblOficio = new System.Windows.Forms.Label();
+            this.LblSalario = new System.Windows.Forms.Label();
+            this.LblFechaAlta = new System.Windows.Forms.Label();
+            this.LblComision = new System.Windows.Forms.Label();
             this.TTInfo = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -370,37 +370,40 @@ namespace GestionEmpleados
             this.BtnActualizar.BackColor = System.Drawing.Color.BurlyWood;
             this.BtnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnActualizar.Font = new System.Drawing.Font("Lucida Console", 8F);
-            this.BtnActualizar.Location = new System.Drawing.Point(503, 131);
+            this.BtnActualizar.Location = new System.Drawing.Point(500, 125);
             this.BtnActualizar.Name = "BtnActualizar";
             this.BtnActualizar.Size = new System.Drawing.Size(87, 19);
             this.BtnActualizar.TabIndex = 24;
+            this.BtnActualizar.Tag = "actualizar";
             this.BtnActualizar.Text = "Actualizar";
             this.BtnActualizar.UseVisualStyleBackColor = false;
-            this.BtnActualizar.Click += new System.EventHandler(this.BtnUpdate_Click);
+            this.BtnActualizar.Click += new System.EventHandler(this.BtnDatosEmple_Click);
             // 
             // BtnBorrar
             // 
             this.BtnBorrar.BackColor = System.Drawing.Color.BurlyWood;
             this.BtnBorrar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnBorrar.Location = new System.Drawing.Point(526, 178);
+            this.BtnBorrar.Location = new System.Drawing.Point(523, 175);
             this.BtnBorrar.Name = "BtnBorrar";
             this.BtnBorrar.Size = new System.Drawing.Size(64, 17);
             this.BtnBorrar.TabIndex = 25;
+            this.BtnBorrar.Tag = "borrar";
             this.BtnBorrar.Text = "Borrar";
             this.BtnBorrar.UseVisualStyleBackColor = false;
-            this.BtnBorrar.Click += new System.EventHandler(this.BtnBorrar_Click);
+            this.BtnBorrar.Click += new System.EventHandler(this.BtnDatosEmple_Click);
             // 
-            // btnNuevo
+            // BtnNuevo
             // 
-            this.btnNuevo.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnNuevo.Location = new System.Drawing.Point(526, 154);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(64, 17);
-            this.btnNuevo.TabIndex = 26;
-            this.btnNuevo.Text = "Nuevo";
-            this.btnNuevo.UseVisualStyleBackColor = false;
-            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            this.BtnNuevo.BackColor = System.Drawing.Color.BurlyWood;
+            this.BtnNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnNuevo.Location = new System.Drawing.Point(523, 150);
+            this.BtnNuevo.Name = "BtnNuevo";
+            this.BtnNuevo.Size = new System.Drawing.Size(64, 17);
+            this.BtnNuevo.TabIndex = 26;
+            this.BtnNuevo.Tag = "guardar";
+            this.BtnNuevo.Text = "Nuevo";
+            this.BtnNuevo.UseVisualStyleBackColor = false;
+            this.BtnNuevo.Click += new System.EventHandler(this.BtnDatosEmple_Click);
             // 
             // label9
             // 
@@ -464,50 +467,50 @@ namespace GestionEmpleados
             this.label16.Text = "Información";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label11
+            // LblApellidos
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(28, 160);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(68, 11);
-            this.label11.TabIndex = 23;
-            this.label11.Text = "Apellidos";
+            this.LblApellidos.AutoSize = true;
+            this.LblApellidos.Location = new System.Drawing.Point(28, 160);
+            this.LblApellidos.Name = "LblApellidos";
+            this.LblApellidos.Size = new System.Drawing.Size(68, 11);
+            this.LblApellidos.TabIndex = 23;
+            this.LblApellidos.Text = "Apellidos";
             // 
-            // label12
+            // LblOficio
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(155, 160);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(47, 11);
-            this.label12.TabIndex = 24;
-            this.label12.Text = "Oficio";
+            this.LblOficio.AutoSize = true;
+            this.LblOficio.Location = new System.Drawing.Point(155, 160);
+            this.LblOficio.Name = "LblOficio";
+            this.LblOficio.Size = new System.Drawing.Size(47, 11);
+            this.LblOficio.TabIndex = 24;
+            this.LblOficio.Text = "Oficio";
             // 
-            // label13
+            // LblSalario
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(276, 160);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(54, 11);
-            this.label13.TabIndex = 25;
-            this.label13.Text = "Salario";
+            this.LblSalario.AutoSize = true;
+            this.LblSalario.Location = new System.Drawing.Point(276, 160);
+            this.LblSalario.Name = "LblSalario";
+            this.LblSalario.Size = new System.Drawing.Size(54, 11);
+            this.LblSalario.TabIndex = 25;
+            this.LblSalario.Text = "Salario";
             // 
-            // label14
+            // LblFechaAlta
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(368, 160);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(75, 11);
-            this.label14.TabIndex = 26;
-            this.label14.Text = "Fecha alta";
+            this.LblFechaAlta.AutoSize = true;
+            this.LblFechaAlta.Location = new System.Drawing.Point(368, 160);
+            this.LblFechaAlta.Name = "LblFechaAlta";
+            this.LblFechaAlta.Size = new System.Drawing.Size(75, 11);
+            this.LblFechaAlta.TabIndex = 26;
+            this.LblFechaAlta.Text = "Fecha alta";
             // 
-            // label15
+            // LblComision
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(461, 160);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(61, 11);
-            this.label15.TabIndex = 27;
-            this.label15.Text = "Comisión";
+            this.LblComision.AutoSize = true;
+            this.LblComision.Location = new System.Drawing.Point(461, 160);
+            this.LblComision.Name = "LblComision";
+            this.LblComision.Size = new System.Drawing.Size(61, 11);
+            this.LblComision.TabIndex = 27;
+            this.LblComision.Text = "Comisión";
             // 
             // Form1
             // 
@@ -517,15 +520,15 @@ namespace GestionEmpleados
             this.BackColor = System.Drawing.Color.PapayaWhip;
             this.ClientSize = new System.Drawing.Size(606, 395);
             this.Controls.Add(this.BtnActualizar);
-            this.Controls.Add(this.label11);
+            this.Controls.Add(this.LblApellidos);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label12);
+            this.Controls.Add(this.LblOficio);
             this.Controls.Add(this.LblInfo);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.label14);
+            this.Controls.Add(this.LblSalario);
+            this.Controls.Add(this.LblFechaAlta);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.btnNuevo);
+            this.Controls.Add(this.LblComision);
+            this.Controls.Add(this.BtnNuevo);
             this.Controls.Add(this.BtnBorrar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.LBIDDepart);
@@ -587,15 +590,15 @@ namespace GestionEmpleados
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button BtnActualizar;
         private System.Windows.Forms.Button BtnBorrar;
-        private System.Windows.Forms.Button btnNuevo;
+        private System.Windows.Forms.Button BtnNuevo;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label LblInfo;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label LblApellidos;
+        private System.Windows.Forms.Label LblOficio;
+        private System.Windows.Forms.Label LblSalario;
+        private System.Windows.Forms.Label LblFechaAlta;
+        private System.Windows.Forms.Label LblComision;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ToolTip TTInfo;
         private System.Windows.Forms.Label LblBorrarInput;

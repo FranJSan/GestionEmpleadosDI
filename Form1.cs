@@ -76,7 +76,6 @@ namespace GestionEmpleados
             LBLocalizacion.SelectedIndex = 0;
                         
             BuscarYMostrarEmpleadosPorDepart();
-
         }
 
         /// <summary>
@@ -153,6 +152,8 @@ namespace GestionEmpleados
         private void LBItemClickEmple(object sender, EventArgs e)
         {
             ListBox lb = (ListBox)sender;
+            if (lb.SelectedItem == null) return;
+
             LBDeptNoEmple.SelectedIndex = lb.SelectedIndex;
             LBIDEmple.SelectedIndex = lb.SelectedIndex;
             LBApellidos.SelectedIndex = lb.SelectedIndex;
@@ -165,7 +166,6 @@ namespace GestionEmpleados
             LBDepart.SelectedIndex = LBIDDepart.SelectedIndex;
             LBLocalizacion.SelectedIndex = LBIDDepart.SelectedIndex;
 
-            if (LBIDEmple.SelectedItem == null) return;
             InsertarDatosEmpleado();       
         }
 
@@ -619,6 +619,20 @@ namespace GestionEmpleados
         private void LblBorrarInput_Click(object sender, EventArgs e)
         {
             TbBuscarEmple.Text = "";
+        }
+
+        private void FlechasTeclado_KeyDown(object sender, KeyEventArgs e)
+        {
+                e.Handled = true;
+
+            if (e.KeyCode == Keys.Down)
+            {
+                BtnFlechasClick(BtnFlechaAbajo, null);
+            } else if (e.KeyCode == Keys.Up)
+            {
+                BtnFlechasClick(BtnFlechaArriba, null);
+
+            }
         }
     }
 }

@@ -126,6 +126,7 @@ namespace GestionEmpleados
             this.LBApellidos.Size = new System.Drawing.Size(117, 114);
             this.LBApellidos.TabIndex = 4;
             this.LBApellidos.Click += new System.EventHandler(this.LBItemClickEmple);
+            this.LBApellidos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FlechasTeclado_KeyDown);
             // 
             // LBOficio
             // 
@@ -136,6 +137,7 @@ namespace GestionEmpleados
             this.LBOficio.Size = new System.Drawing.Size(116, 114);
             this.LBOficio.TabIndex = 5;
             this.LBOficio.Click += new System.EventHandler(this.LBItemClickEmple);
+            this.LBOficio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FlechasTeclado_KeyDown);
             // 
             // LBSalario
             // 
@@ -146,6 +148,7 @@ namespace GestionEmpleados
             this.LBSalario.Size = new System.Drawing.Size(87, 114);
             this.LBSalario.TabIndex = 6;
             this.LBSalario.Click += new System.EventHandler(this.LBItemClickEmple);
+            this.LBSalario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FlechasTeclado_KeyDown);
             // 
             // LBFechaAlta
             // 
@@ -156,6 +159,7 @@ namespace GestionEmpleados
             this.LBFechaAlta.Size = new System.Drawing.Size(87, 114);
             this.LBFechaAlta.TabIndex = 7;
             this.LBFechaAlta.Click += new System.EventHandler(this.LBItemClickEmple);
+            this.LBFechaAlta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FlechasTeclado_KeyDown);
             // 
             // LBComision
             // 
@@ -166,6 +170,7 @@ namespace GestionEmpleados
             this.LBComision.Size = new System.Drawing.Size(53, 114);
             this.LBComision.TabIndex = 8;
             this.LBComision.Click += new System.EventHandler(this.LBItemClickEmple);
+            this.LBComision.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FlechasTeclado_KeyDown);
             // 
             // label1
             // 
